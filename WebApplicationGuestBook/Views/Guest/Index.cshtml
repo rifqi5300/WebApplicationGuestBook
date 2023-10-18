@@ -15,6 +15,7 @@
             <th scope="col">Note</th>
             <th scope="col">Relation</th>
             <th scope="col">No Kendaraan</th>
+            <th scope="col">Aksi</th>
         </tr>
     </thead>
 
@@ -33,6 +34,11 @@
                     <td>@guest.Note</td>
                     <td>@guest.Relation</td>
                     <td>@guest.NoKendaraan</td>
+                    <td> 
+                        <a href="~/guest/editguest/@guest.Id" target="_blank">
+                            Edit
+                         </a>
+                    </td>
                 </tr>
             </tbody>
             
