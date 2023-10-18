@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "EditGuest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Guest guest = ViewBag.Guest;
+}
+
+<h1>Edit Guest</h1>
+
+<form method="post" action="~/guest/editguest">
+    <input type="hidden" name="Id" id="Id" value="@guest.Id" />
+    <div class="mb-3 row">
+        <label for="Name" class="col-sm-2 col-form-label">*Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="Name" name="Name" required value="@guest.Name">
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="Address" class="col-sm-2 col-form-label">Address</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="Address" name="Address" value="@guest.Address">
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="Phone" class="col-sm-2 col-form-label">Phone</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="Phone" name="Phone" value="@guest.Phone">
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="Email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control" id="Email" required name="Email" value="@guest.Email">
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="Note" class="col-sm-2 col-form-label">Note</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="Note" name="Note" value="@guest.Note">
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="Relation" class="col-sm-2 col-form-label">Relation</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="Relation" name="Relation" value="@guest.Relation">
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="NoKendaraan" class="col-sm-2 col-form-label">No Kendaraan</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="NoKendaraan" name="NoKendaraan" value="@guest.NoKendaraan">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-light">Save</button>
+
+</form>
