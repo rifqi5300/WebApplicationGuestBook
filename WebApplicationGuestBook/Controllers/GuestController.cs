@@ -68,10 +68,12 @@ namespace WebApplicationGuestBook.Controllers
         [HttpPost]
         public IActionResult EditGuest(Guest guest_baru)
         {
-            //ambil data sesuai id yang ada di guest, kita namakan guest_sekarang
+            //1. ambil data guest yang sekarang
             Guest guest_sekarang = _context.Guests.SingleOrDefault(g => g.Id == guest_baru.Id);
 
-            //data guest_sekarang akan diubah sesuai dengan guest_baru
+            //2. ambil data yang baru, yaitu guest_baru
+
+            //3. ubah data yang sekarang sesuai dengan yang baru
             guest_sekarang.Name = guest_baru.Name;
             guest_sekarang.Address = guest_baru.Address;
             guest_sekarang.Email = guest_baru.Email;
@@ -80,11 +82,11 @@ namespace WebApplicationGuestBook.Controllers
             guest_sekarang.Relation = guest_baru.Relation;
             guest_sekarang.NoKendaraan = guest_baru.NoKendaraan;
 
+            //4. simpan perubahan di database
             _context.SaveChanges();
 
-            //arahkan user ke action index
+            //5. balik ke halaman index dengan data yang terbaru
             return RedirectToAction("Index");
-            
         }
 
     }
