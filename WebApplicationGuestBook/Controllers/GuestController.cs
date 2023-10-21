@@ -89,5 +89,27 @@ namespace WebApplicationGuestBook.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult DeleteGuest(int id) 
+        {
+        
+            //1. pastikan data guest ada
+            if (!_context.Guests.Any(g => g.Id == id))
+            {
+                //1.1 guest tidak ada, kembali ke index Listguest
+                return RedirectToAction("Index");
+            }
+
+            //1.2 guest ada, hapus guest
+            Guest guest = _context.Guests.SingleOrDefault(g => g.Id == id);
+            _context.Guests.Remove(guest);
+
+            //3. simpan perubahan
+            _context.SaveChanges();
+
+            //4. kembali ke index
+            return RedirectToAction("Index");
+
+        }
+
     }
 }

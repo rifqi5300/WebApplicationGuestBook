@@ -38,6 +38,9 @@
                         <a href="~/guest/editguest/@guest.Id" target="_blank">
                             Edit
                          </a>
+                        |<a onclick="myfunction()" href="~/guest/deleteguest/@guest.Id" target="_blank">
+                            Delete
+                        </a>
                     </td>
                 </tr>
             </tbody>
@@ -49,3 +52,12 @@
 </table>
 
 <a href="~/guest/addguest" type="button" class="btn btn-link">Add new guest</a>
+
+@section Scripts
+{
+<script>
+function myFunction() {
+  confirm("Press a button!");
+}
+</script>
+}
