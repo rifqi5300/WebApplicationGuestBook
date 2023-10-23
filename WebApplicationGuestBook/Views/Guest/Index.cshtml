@@ -34,17 +34,17 @@
                     <td>@guest.Note</td>
                     <td>@guest.Relation</td>
                     <td>@guest.NoKendaraan</td>
-                    <td> 
+                    <td>
                         <a href="~/guest/editguest/@guest.Id" target="_blank">
                             Edit
-                         </a>
-                        |<a onclick="myfunction()" href="~/guest/deleteguest/@guest.Id" target="_blank">
+                        </a>&nbsp;
+                        <a id="deleteGuestButton" href="~/guest/DeleteGuest/@guest.Id">
                             Delete
                         </a>
                     </td>
                 </tr>
             </tbody>
-            
+
         }
 
     }
@@ -54,10 +54,16 @@
 <a href="~/guest/addguest" type="button" class="btn btn-link">Add new guest</a>
 
 @section Scripts
-{
-<script>
-function myFunction() {
-  confirm("Press a button!");
-}
-</script>
+    {
+    <script>
+
+        $("#deleteGuestButton").click(function (event) {
+            event.preventDefault();
+            var text = 'Anda yakin ingin menghapus guest?';
+            if (confirm(text)) {
+                window.location.replace(this.href);
+            }
+        });
+
+    </script>
 }
