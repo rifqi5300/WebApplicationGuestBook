@@ -37,8 +37,8 @@
                     <td> 
                         <a href="~/guest/editguest/@guest.Id" target="_blank">
                             Edit
-                         </a>
-                        |<a onclick="myfunction()" href="~/guest/deleteguest/@guest.Id" target="_blank">
+                        </a>&nbsp;
+                        <a id="deleteGuestButton" href="~/guest/DeleteGuest/@guest.Id">
                             Delete
                         </a>
                     </td>
@@ -56,8 +56,15 @@
 @section Scripts
 {
 <script>
-function myFunction() {
-  confirm("Press a button!");
-}
+
+    $("#deleteGuestButton").click(function (event){
+        event.preventDefault();
+        var text = 'Anda yakin ingin menghapus guest?';
+        if (confirm(text)) {
+            //alert('guest dihapus' + this.href);
+            window.location.replace(this.href);
+        }
+    });
+
 </script>
 }
