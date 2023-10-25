@@ -14,8 +14,23 @@ namespace WebApplicationGuestBook.Controllers
         }
 
         //index berisi daftar tamu
-        public IActionResult Index()
+        public IActionResult Index(string Search)
         {
+            //1. cek apakah Search ada atau tidak
+
+            if (!string.IsNullOrEmpty(Search)) 
+            {
+                //1.1 kalo ada
+                var guestlistsearch = _context.Guests.Where(g => g.Name.Contains(Search)).ToList();
+
+                ViewBag.Guestlist = guestlistsearch;
+
+                return View();
+            }
+
+            //1.2 kalo tidak ada, maka tampilkan seperti biasa
+
+
             //ambil data guest dari database
             var guestList = _context.Guests.ToList();
 
