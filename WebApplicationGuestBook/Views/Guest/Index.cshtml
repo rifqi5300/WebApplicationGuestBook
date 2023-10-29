@@ -4,6 +4,27 @@
 @{
 }
 
+<form method="get" action="~/guest/index">
+    <div class="mb-3 row">
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="Search" name="Search" required value="">
+            <select name="TypeSearch" class ="form-control" id="TypeSearch">
+                <option value="Name">Name</option>
+                <option value="Address">Address</option>
+                <option value="Phone">Phone</option>
+                <option value="Email">E-Mail</option>
+                <option value="Note">Note</option>
+                <option value="Relation">Relation</option>
+                <option value="NoKendaraan">NoKendaraan</option>
+            </select>
+            <button type="submit" class="btn btn-light">Search</button>
+        </div>
+    </div>
+
+    
+
+</form>
+
 <table class="table">
     <thead>
         <tr>
