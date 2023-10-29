@@ -14,21 +14,86 @@ namespace WebApplicationGuestBook.Controllers
         }
 
         //index berisi daftar tamu
-        public IActionResult Index(string Search)
+        public IActionResult Index(string Search, string TypeSearch)
         {
             //1. cek apakah Search ada atau tidak
 
-            if (!string.IsNullOrEmpty(Search)) 
+            if (!string.IsNullOrEmpty(Search))
             {
                 //1.1 kalo ada
-                var guestlistsearch = _context.Guests.Where(g => g.Name.Contains(Search)).ToList();
+                //1.2 periksa tipe search
+                //1.2.1 jika Name
+                if (TypeSearch == "Name")
+                {
+                    var guestlistsearch = _context.Guests.Where(g => g.Name.Contains(Search)).ToList();
 
-                ViewBag.Guestlist = guestlistsearch;
+                    ViewBag.Guestlist = guestlistsearch;
 
-                return View();
+                    return View();
+                }
+
+                //1.2.2 Jika Address
+                if (TypeSearch == "Address")
+                {
+                    var guestlistsearch = _context.Guests.Where(g => g.Address.Contains(Search)).ToList();
+
+                    ViewBag.Guestlist = guestlistsearch;
+
+                    return View();
+                }
+
+                //1.2.3 jika Phone
+                if (TypeSearch == "Phone")
+                {
+                    var guestlistsearch = _context.Guests.Where(g => g.Phone.Contains(Search)).ToList();
+
+                    ViewBag.Guestlist = guestlistsearch;
+
+                    return View();
+                }
+
+                //1.2.4 jika Email
+                if (TypeSearch == "Email")
+                {
+                    var guestlistsearch = _context.Guests.Where(g => g.Email.Contains(Search)).ToList();
+
+                    ViewBag.Guestlist = guestlistsearch;
+
+                    return View();
+                }
+
+                //1.2.5 jika Note
+                if (TypeSearch == "Note")
+                {
+                    var guestlistsearch = _context.Guests.Where(g => g.Note.Contains(Search)).ToList();
+
+                    ViewBag.Guestlist = guestlistsearch;
+
+                    return View();
+                }
+
+                //1.2.6 jika Relation
+                if (TypeSearch == "Relation")
+                {
+                    var guestlistsearch = _context.Guests.Where(g => g.Relation.Contains(Search)).ToList();
+
+                    ViewBag.Guestlist = guestlistsearch;
+
+                    return View();
+                }
+
+                //1.2.7 jika Nokendaraan
+                else
+                {
+                    var guestlistsearch = _context.Guests.Where(g => g.NoKendaraan.Contains(Search)).ToList();
+
+                    ViewBag.Guestlist = guestlistsearch;
+
+                    return View();
+                }
             }
 
-            //1.2 kalo tidak ada, maka tampilkan seperti biasa
+            //1.3 kalo tidak ada, maka tampilkan seperti biasa
 
 
             //ambil data guest dari database
