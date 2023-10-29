@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApplicationGuestBook.Data;
 using WebApplicationGuestBook.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Formatters.Xml;
 
 namespace WebApplicationGuestBook.Controllers
 {
+    [Authorize]
     public class GuestController : Controller
     {
         private ApplicationDbContext _context;
@@ -25,7 +29,7 @@ namespace WebApplicationGuestBook.Controllers
                 //1.2.1 jika Name
                 if (TypeSearch == "Name")
                 {
-                    var guestlistsearch = _context.Guests.Where(g => g.Name.Contains(Search)).ToList();
+                    var guestlistsearch = _context.Guests.Where(g => g.Username == User.Identity.Name && g.Name.Contains(Search)).ToList();
 
                     ViewBag.Guestlist = guestlistsearch;
 
@@ -35,7 +39,7 @@ namespace WebApplicationGuestBook.Controllers
                 //1.2.2 Jika Address
                 if (TypeSearch == "Address")
                 {
-                    var guestlistsearch = _context.Guests.Where(g => g.Address.Contains(Search)).ToList();
+                    var guestlistsearch = _context.Guests.Where(g => g.Address.Contains(Search) && g.Username == User.Identity.Name).ToList();
 
                     ViewBag.Guestlist = guestlistsearch;
 
@@ -45,7 +49,7 @@ namespace WebApplicationGuestBook.Controllers
                 //1.2.3 jika Phone
                 if (TypeSearch == "Phone")
                 {
-                    var guestlistsearch = _context.Guests.Where(g => g.Phone.Contains(Search)).ToList();
+                    var guestlistsearch = _context.Guests.Where(g => g.Phone.Contains(Search) && g.Username == User.Identity.Name).ToList();
 
                     ViewBag.Guestlist = guestlistsearch;
 
@@ -55,7 +59,7 @@ namespace WebApplicationGuestBook.Controllers
                 //1.2.4 jika Email
                 if (TypeSearch == "Email")
                 {
-                    var guestlistsearch = _context.Guests.Where(g => g.Email.Contains(Search)).ToList();
+                    var guestlistsearch = _context.Guests.Where(g => g.Email.Contains(Search) && g.Username == User.Identity.Name).ToList();
 
                     ViewBag.Guestlist = guestlistsearch;
 
@@ -65,7 +69,7 @@ namespace WebApplicationGuestBook.Controllers
                 //1.2.5 jika Note
                 if (TypeSearch == "Note")
                 {
-                    var guestlistsearch = _context.Guests.Where(g => g.Note.Contains(Search)).ToList();
+                    var guestlistsearch = _context.Guests.Where(g => g.Note.Contains(Search) && g.Username == User.Identity.Name).ToList();
 
                     ViewBag.Guestlist = guestlistsearch;
 
@@ -75,7 +79,7 @@ namespace WebApplicationGuestBook.Controllers
                 //1.2.6 jika Relation
                 if (TypeSearch == "Relation")
                 {
-                    var guestlistsearch = _context.Guests.Where(g => g.Relation.Contains(Search)).ToList();
+                    var guestlistsearch = _context.Guests.Where(g => g.Relation.Contains(Search) && g.Username == User.Identity.Name).ToList();
 
                     ViewBag.Guestlist = guestlistsearch;
 
@@ -85,7 +89,7 @@ namespace WebApplicationGuestBook.Controllers
                 //1.2.7 jika Nokendaraan
                 else
                 {
-                    var guestlistsearch = _context.Guests.Where(g => g.NoKendaraan.Contains(Search)).ToList();
+                    var guestlistsearch = _context.Guests.Where(g => g.NoKendaraan.Contains(Search) && g.Username == User.Identity.Name).ToList();
 
                     ViewBag.Guestlist = guestlistsearch;
 
@@ -97,7 +101,7 @@ namespace WebApplicationGuestBook.Controllers
 
 
             //ambil data guest dari database
-            var guestList = _context.Guests.ToList();
+            var guestList = _context.Guests.Where(g => g.Username == User.Identity.Name).ToList();
 
             ViewBag.GuestList = guestList;
 
@@ -111,13 +115,12 @@ namespace WebApplicationGuestBook.Controllers
 
         [HttpPost]
         public IActionResult AddGuest(Guest guest)
-        {
-            //kita apakan data itu
-
+        {                        
+            
             //kita validasi
-
             if (ModelState.IsValid)
             {
+                
                 //kita simpan ke database
                 _context.Guests.Add(guest);
 
@@ -125,6 +128,11 @@ namespace WebApplicationGuestBook.Controllers
 
                 return RedirectToAction("index");
             }
+
+            var errorMessage = string.Join(" | ", ModelState.Values
+                                           .SelectMany(v => v.Errors)
+                                           .Select(e => e.ErrorMessage));
+            ViewBag.errorMessage = errorMessage;
 
             //kasi peringatan di bawah
 

@@ -6,7 +6,15 @@
 
 <h1>Add New Guest</h1>
 
+@{
+    if (ViewBag.errorMessage != null)
+    {
+        <label>@ViewBag.errorMessage</label>        
+    }
+}
+
 <form method="post" action="~/guest/addguest">
+    <input type="hidden" name="Username" id="Username" value="@User.Identity.Name" />
    
     <div class="mb-3 row">
         <label for="Name" class="col-sm-2 col-form-label">*Name</label>
